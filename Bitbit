@@ -1,0 +1,28 @@
+// 1.创建兼容缓冲区
+mdc = CreateCompatibleDC(hdc);   // 创建兼容DC
+bmp = CreateCompatibleBitmap(hdc, 600, 600);   // 创建兼容位图画布
+SelectObject(mdc, bmp);    // 选入
+
+// 2.在缓冲区绘制 
+
+      maphdc = CreateCompatibleDC(hdc); /*创建兼容DC*/
+      
+      /*贴第一张位图*/
+      HBITMAP map = (HBITMAP)LoadImage(hInst, MAKEINTRESOURCE(IDB_BITMAP1), IMAGE_BITMAP, 500, 500, LR_CREATEDIBSECTION);
+      SelectObject(maphdc, map);
+      BitBlt(mdc, 0, 0, 500, 500, maphdc, 0, 0, SRCCOPY);
+      /*贴第二张位图*/
+      HBITMAP map = (HBITMAP)LoadImage(hInst, MAKEINTRESOURCE(IDB_BITMAP1), IMAGE_BITMAP, 500, 500, LR_CREATEDIBSECTION);
+      SelectObject(maphdc, map);
+      BitBlt(mdc, 0, 0, 500, 500, maphdc, 0, 0, SRCCOPY);
+       
+      DeleteDC(maphdc);  /*释放兼容DC*/
+      
+// 3.一次性复制到设备DC
+BitBlt(hdc, 0, 0, 500, 500, mdc, 0, 0, SRCCOPY);
+ 
+// 4.释放缓冲区DC
+DeleteDC(mdc);
+————————————————
+版权声明：本文为CSDN博主「战胜.」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_45021180/article/details/99672243
